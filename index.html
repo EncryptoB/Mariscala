@@ -25,32 +25,63 @@
         .address-container:hover .copy-icon {
             opacity: 1;
         }
+        .animated-background {
+            background: linear-gradient(270deg, #f8fafc, #f1f5f9);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
     </style>
 </head>
 <body class="bg-white min-h-screen font-inter">
-    <nav class="bg-white shadow-sm fixed w-full z-10">
+    <nav class="bg-white/80 backdrop-blur-sm fixed w-full z-10 transition-all duration-300">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <div class="text-2xl font-garamond font-bold text-gray-800">Fondo Soberano</div>
+                <div class="text-2xl font-garamond font-bold text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-default">
+                    Fondo Soberano
+                </div>
             </div>
         </div>
     </nav>
 
-    <header id="inicio" class="pt-32 pb-20">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-5xl md:text-6xl font-garamond font-bold mb-4 text-gray-900">
+    <header class="relative min-h-screen flex items-center animated-background">
+        <div class="container mx-auto px-6 text-center py-32">
+            <h1 class="text-5xl md:text-6xl font-garamond font-bold mb-4 text-gray-900 opacity-0 animate-fade-in"
+                style="animation: fadeIn 1s ease-out forwards">
                 Fondo Soberano
             </h1>
-            <h2 class="text-3xl md:text-4xl font-garamond font-semibold text-gray-700 mb-16">
+            <h2 class="text-3xl md:text-4xl font-garamond font-semibold text-gray-700 mb-16 opacity-0"
+                style="animation: fadeIn 1s ease-out 0.5s forwards">
                 DIVIDENDO SOBERANO
             </h2>
-            <div class="max-w-3xl mx-auto">
-                <div class="mission-box p-8 rounded-xl shadow-lg mb-16">
+            <div class="max-w-3xl mx-auto opacity-0" style="animation: fadeIn 1s ease-out 1s forwards">
+                <div class="mission-box p-8 rounded-xl shadow-lg mb-16 hover:shadow-xl transition-shadow duration-300">
                     <p class="text-xl text-gray-700 leading-relaxed font-light">
                         Con la misión de construir el instrumento que asegure el bienestar y el futuro financiero de todos los ciudadanos a través de un dividendo básico universal basado en un mecanismo de donaciones y subvenciones en activos digitales.
                     </p>
                 </div>
             </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
         </div>
     </header>
 
@@ -58,12 +89,12 @@
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 max-w-3xl mx-auto">
                 <!-- Ethereum Card -->
-                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition duration-300">
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
                     <h3 class="text-base font-garamond font-semibold text-gray-800 mb-4">Ethereum</h3>
                     <div class="address-container group relative flex items-center">
-                        <p class="text-gray-600 break-all text-xs pr-8">0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b</p>
+                        <p class="text-gray-600 break-all text-xs pr-8 select-all">0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b</p>
                         <button onclick="copyToClipboard('0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b')" 
-                                class="copy-icon absolute right-0 p-2 text-gray-400 hover:text-gray-600">
+                                class="copy-icon absolute right-0 p-2 text-gray-400 hover:text-gray-600 transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
                             </svg>
@@ -72,12 +103,12 @@
                 </div>
 
                 <!-- Bitcoin Card -->
-                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition duration-300">
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
                     <h3 class="text-base font-garamond font-semibold text-gray-800 mb-4">Bitcoin</h3>
                     <div class="address-container group relative flex items-center">
-                        <p class="text-gray-600 break-all text-xs pr-8">bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6</p>
+                        <p class="text-gray-600 break-all text-xs pr-8 select-all">bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6</p>
                         <button onclick="copyToClipboard('bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6')" 
-                                class="copy-icon absolute right-0 p-2 text-gray-400 hover:text-gray-600">
+                                class="copy-icon absolute right-0 p-2 text-gray-400 hover:text-gray-600 transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
                             </svg>
@@ -94,6 +125,13 @@
         </div>
     </footer>
 
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
     <script>
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
@@ -108,15 +146,29 @@
                 tooltip.style.color = 'white';
                 tooltip.style.borderRadius = '4px';
                 tooltip.style.fontSize = '0.875rem';
+                tooltip.style.opacity = '0';
+                tooltip.style.transition = 'opacity 0.3s ease';
                 document.body.appendChild(tooltip);
                 
-                setTimeout(() => {
-                    tooltip.remove();
-                }, 1500);
-            }).catch(err => {
-                console.error('Error al copiar:', err);
+                requestAnimationFrame(() => {
+                    tooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        tooltip.style.opacity = '0';
+                        setTimeout(() => tooltip.remove(), 300);
+                    }, 1500);
+                });
             });
         }
+
+        // Navbar transparency effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-sm');
+            }
+        });
     </script>
 </body>
 </html>
