@@ -32,10 +32,6 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="text-2xl font-garamond font-bold text-gray-800">Fondo Soberano</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#inicio" class="text-gray-600 hover:text-gray-900 transition">Inicio</a>
-                    <a href="#donaciones" class="text-gray-600 hover:text-gray-900 transition">Donaciones</a>
-                </div>
             </div>
         </div>
     </nav>
@@ -58,14 +54,14 @@
         </div>
     </header>
 
-    <section id="donaciones" class="py-20 bg-gray-50">
+    <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 max-w-3xl mx-auto">
                 <!-- Ethereum Card -->
-                <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition duration-300">
-                    <h3 class="text-xl font-garamond font-semibold text-gray-800 mb-6">Ethereum</h3>
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition duration-300">
+                    <h3 class="text-base font-garamond font-semibold text-gray-800 mb-4">Ethereum</h3>
                     <div class="address-container group relative flex items-center">
-                        <p class="text-gray-600 break-all text-sm pr-8">0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b</p>
+                        <p class="text-gray-600 break-all text-xs pr-8">0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b</p>
                         <button onclick="copyToClipboard('0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b')" 
                                 class="copy-icon absolute right-0 p-2 text-gray-400 hover:text-gray-600">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,10 +72,10 @@
                 </div>
 
                 <!-- Bitcoin Card -->
-                <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition duration-300">
-                    <h3 class="text-xl font-garamond font-semibold text-gray-800 mb-6">Bitcoin</h3>
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition duration-300">
+                    <h3 class="text-base font-garamond font-semibold text-gray-800 mb-4">Bitcoin</h3>
                     <div class="address-container group relative flex items-center">
-                        <p class="text-gray-600 break-all text-sm pr-8">bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6</p>
+                        <p class="text-gray-600 break-all text-xs pr-8">bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6</p>
                         <button onclick="copyToClipboard('bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6')" 
                                 class="copy-icon absolute right-0 p-2 text-gray-400 hover:text-gray-600">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,7 +97,6 @@
     <script>
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                // Feedback visual sutil
                 const tooltip = document.createElement('div');
                 tooltip.textContent = 'Copiado';
                 tooltip.style.position = 'fixed';
