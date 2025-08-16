@@ -1,251 +1,303 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/favicon-96x96.png">
-    <title>Mariscala DAO</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --background: #f0f4f8;
-            --text: #1a1a1a;
-            --card-bg: #ffffff;
-            --mission-bg: rgba(255, 255, 255, 0.9);
-            --accent: #6366f1;
-            --gradient-start: rgba(99, 102, 241, 0.1);
-            --gradient-end: rgba(168, 85, 247, 0.05);
-            --card-hover: #f5f7ff;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <title>Mariscala DAO</title>
 
-        [data-theme="dark"] {
-            --background: #0f172a;
-            --text: #f1f5f9;
-            --card-bg: #1e293b;
-            --mission-bg: rgba(30, 41, 59, 0.9);
-            --accent: #818cf8;
-            --gradient-start: rgba(99, 102, 241, 0.2);
-            --gradient-end: rgba(168, 85, 247, 0.1);
-            --card-hover: #2d3a54;
-        }
+  <!-- Tailwind v2 (CDN estable) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--background);
-            color: var(--text);
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+  <style>
+    :root {
+      --background: #f9fafb;
+      --text: #111827;
+      --card-bg: #ffffff;
+      --mission-bg: rgba(255, 255, 255, 0.9);
+      --accent: #6366f1;
+      --gradient-start: rgba(99, 102, 241, 0.08);
+      --gradient-end: rgba(168, 85, 247, 0.05);
+      --card-hover: #f5f7ff;
+    }
 
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 50;
-            padding: 0.5rem;
-            border-radius: 50%;
-            background: var(--card-bg);
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    [data-theme="dark"] {
+      --background: #0f172a;
+      --text: #f1f5f9;
+      --card-bg: #1e293b;
+      --mission-bg: rgba(30, 41, 59, 0.9);
+      --accent: #818cf8;
+      --gradient-start: rgba(99, 102, 241, 0.12);
+      --gradient-end: rgba(168, 85, 247, 0.08);
+      --card-hover: #2a3650;
+    }
 
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 25px rgba(99, 102, 241, 0.25);
-        }
+    /* Tipografías utilitarias */
+    .font-garamond { font-family: 'Cormorant Garamond', serif; }
+    .font-inter { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
 
-        .mission-container {
-            background: var(--mission-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
-        }
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color .3s ease, color .3s ease;
+    }
 
-        .mission-container:hover {
-            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
-            transform: translateY(-2px);
-        }
+    /* Botón tema */
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 50;
+      padding: .6rem;
+      border-radius: .75rem;
+      background: var(--card-bg);
+      border: 1px solid rgba(99, 102, 241, .15);
+      cursor: pointer;
+      transition: transform .2s ease, border-color .3s ease, box-shadow .3s ease;
+      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    }
+    .theme-toggle:hover {
+      transform: scale(1.05);
+      border-color: rgba(99, 102, 241, .28);
+      box-shadow: 0 10px 28px rgba(0,0,0,.10);
+    }
 
-        .card {
-            background: var(--card-bg);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-        }
+    /* Contenedores */
+    .mission-container {
+      background: var(--mission-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      border: 1px solid rgba(99, 102, 241, .12);
+      box-shadow: 0 8px 32px rgba(99,102,241,.08);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .mission-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 42px rgba(99,102,241,.12);
+    }
 
-        .card:hover {
-            background: var(--card-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
-        }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(99, 102, 241, .12);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      background: var(--card-hover);
+      box-shadow: 0 12px 30px rgba(0,0,0,.10);
+    }
 
-        .animated-bg {
-            background: linear-gradient(135deg, 
-                var(--gradient-start) 0%,
-                var(--gradient-end) 100%
-            );
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
-            animation: gradientAnimation 15s ease infinite;
-        }
+    /* Fondo animado sutil */
+    .animated-bg {
+      position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      animation: gradientAnimation 28s ease infinite;
+      opacity: .55;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
+    /* Titulares */
+    .title-gradient {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    .title-underline { display: inline-block; position: relative; }
+    .title-underline::after {
+      content: ""; position: absolute; left: 0; bottom: -6px;
+      width: 100%; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+    }
 
-        .title-gradient {
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .crypto-address {
-            background: linear-gradient(90deg, 
-                rgba(99, 102, 241, 0.1),
-                rgba(168, 85, 247, 0.1)
-            );
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            transition: all 0.3s ease;
-        }
-
-        .crypto-address:hover {
-            background: linear-gradient(90deg, 
-                rgba(99, 102, 241, 0.15),
-                rgba(168, 85, 247, 0.15)
-            );
-        }
-    </style>
+    /* Dirección cripto */
+    .crypto-address {
+      background: linear-gradient(90deg, rgba(99,102,241,.06), rgba(168,85,247,.06));
+      border-radius: .5rem;
+      padding: .75rem;
+      transition: background .25s ease;
+    }
+    .crypto-address:hover {
+      background: linear-gradient(90deg, rgba(99,102,241,.12), rgba(168,85,247,.12));
+    }
+  </style>
 </head>
+
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path class="sun-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" 
-                  style="display: none;"></path>
-            <path class="moon-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-        </svg>
-    </button>
+  <!-- Toggle Tema -->
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <!-- Ícono sol -->
+      <path class="sun-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"
+        style="display:none;"></path>
+      <!-- Ícono luna -->
+      <path class="moon-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+    </svg>
+  </button>
 
-    <div class="min-h-screen flex flex-col">
-        <div class="animated-bg"></div>
-        
-        <main class="flex-grow flex items-center justify-center px-4 py-16">
-            <div class="max-w-4xl w-full space-y-16">
-                <div class="text-center space-y-8">
-                    <h1 class="text-6xl font-garamond font-bold title-gradient">MARISCALA</h1>
-                    <h2 class="text-4xl font-garamond font-semibold opacity-90">Organización Autonoma Descentralizada</h2>
-                </div>
+  <div class="min-h-screen flex flex-col relative">
+    <div class="animated-bg"></div>
 
-                <div class="mission-container p-8 shadow-lg">
-                    <p class="text-xl leading-relaxed text-justify">
-                        Nuestra misión es impulsar un fondo financiero que asegure un futuro económico sólido para cada ciudadano de Mariscala de Júarez. A través de un sistema innovador de donaciones y subvenciones en activos digitales, trabajamos para ofrecer un dividendo básico universal que permita a cada persona acceder a los beneficios de una economía global inclusiva.
-                    </p>
-                </div>
+    <main class="flex-grow flex items-center justify-center px-4 py-16">
+      <div class="max-w-4xl w-full space-y-16">
+        <!-- Hero -->
+        <div class="text-center space-y-6">
+          <h1 class="text-5xl md:text-6xl font-garamond font-bold title-gradient title-underline">MARISCALA</h1>
+          <h2 class="text-2xl md:text-3xl font-garamond font-semibold opacity-90">
+            Organización Autónoma Descentralizada
+          </h2>
+        </div>
 
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="card p-6 rounded-lg shadow-lg space-y-4">
-                        <h3 class="text-xl font-garamond font-semibold title-gradient">Ethereum</h3>
-                        <div class="relative group crypto-address">
-                            <p class="text-xs opacity-80 break-all pr-4">0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b</p>
-                            <button onclick="copyToClipboard('0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b')" 
-                                    class="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+        <!-- Misión -->
+        <section class="mission-container p-8">
+          <p class="text-lg md:text-xl leading-relaxed text-justify">
+            Nuestra misión es construir un fondo que garantice seguridad económica y oportunidades reales para cada habitante de Mariscala de Juárez. Creemos en la fuerza de las donaciones y los activos digitales para impulsar un ingreso básico que abra las puertas a una economía más justa, inclusiva y compartida por todos.
+          </p>
+        </section>
 
-                    <div class="card p-6 rounded-lg shadow-lg space-y-4">
-                        <h3 class="text-xl font-garamond font-semibold title-gradient">Bitcoin</h3>
-                        <div class="relative group crypto-address">
-                            <p class="text-xs opacity-80 break-all pr-4">bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6</p>
-                            <button onclick="copyToClipboard('bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6')" 
-                                    class="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <!-- Cuentas -->
+        <section class="grid md:grid-cols-2 gap-8">
+          <!-- Ethereum -->
+          <article class="card space-y-4">
+            <h3 class="flex items-center gap-2 text-xl font-garamond font-semibold title-gradient">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2L4 12l8 10 8-10-8-10z"></path>
+              </svg>
+              Ethereum
+            </h3>
+            <div class="relative group crypto-address">
+              <p class="text-xs opacity-80 break-all pr-8">0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b</p>
+              <button
+                onclick="copyToClipboard('0xCcC5C4419acBED4B9deAE110Bb49e28fe7E8234b')"
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+                aria-label="Copiar dirección Ethereum">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                </svg>
+              </button>
             </div>
-        </main>
+          </article>
 
-        <footer class="py-8 text-center opacity-60 text-sm">
-            <p>&copy; 2024 Fondo Mariscala. Todos los derechos reservados.</p>
-        </footer>
-    </div>
+          <!-- Bitcoin -->
+          <article class="card space-y-4">
+            <h3 class="flex items-center gap-2 text-xl font-garamond font-semibold title-gradient">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+              </svg>
+              Bitcoin
+            </h3>
+            <div class="relative group crypto-address">
+              <p class="text-xs opacity-80 break-all pr-8">bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6</p>
+              <button
+                onclick="copyToClipboard('bc1qf0uj8tyqm03zv87lmskclk0vh37adxtf94u7t6')"
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+                aria-label="Copiar dirección Bitcoin">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                </svg>
+              </button>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
 
-    <script>
-        
-        function toggleTheme() {
-            const html = document.documentElement;
-            const sunIcon = document.querySelector('.sun-icon');
-            const moonIcon = document.querySelector('.moon-icon');
-            
-            if (html.getAttribute('data-theme') === 'dark') {
-                html.removeAttribute('data-theme');
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-            } else {
-                html.setAttribute('data-theme', 'dark');
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
-            }
-        }
+    <footer class="py-6 text-center border-t border-gray-200" style="border-color: rgba(148,163,184,.35);">
+      <p class="text-sm opacity-70">&copy; 2024 Fondo Mariscala — Todos los derechos reservados.</p>
+    </footer>
+  </div>
 
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            document.querySelector('.sun-icon').style.display = 'block';
-            document.querySelector('.moon-icon').style.display = 'none';
-        }
+  <script>
+    // Persistencia del tema + control de íconos
+    function applyTheme(theme) {
+      const html = document.documentElement;
+      const sunIcon = document.querySelector('.sun-icon');
+      const moonIcon = document.querySelector('.moon-icon');
 
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const tooltip = document.createElement('div');
-                tooltip.textContent = 'Copiado';
-                tooltip.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    padding: 0.5rem 1rem;
-                    background-color: var(--accent);
-                    color: white;
-                    border-radius: 4px;
-                    font-size: 0.875rem;
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                `;
-                
-                document.body.appendChild(tooltip);
-                requestAnimationFrame(() => {
-                    tooltip.style.opacity = '1';
-                    setTimeout(() => {
-                        tooltip.style.opacity = '0';
-                        setTimeout(() => tooltip.remove(), 300);
-                    }, 1500);
-                });
-            });
-        }
-    </script>
+      if (theme === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      } else {
+        html.removeAttribute('data-theme');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
+    }
+
+    function getPreferredTheme() {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved;
+      return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ? 'dark'
+        : 'light';
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      applyTheme(next);
+    }
+
+    // Inicializa tema al cargar
+    (function initTheme() { applyTheme(getPreferredTheme()); })();
+
+    // Copiar al portapapeles con toast sutil
+    function copyToClipboard(text) {
+      if (!navigator.clipboard) {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Copiado');
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => showToast('Copiado'));
+    }
+
+    function showToast(msg) {
+      const tooltip = document.createElement('div');
+      tooltip.textContent = msg;
+      tooltip.style.cssText = `
+        position: fixed; top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        padding: .55rem 1rem; background-color: var(--accent);
+        color: #fff; border-radius: .5rem; font-size: .875rem;
+        box-shadow: 0 10px 24px rgba(0,0,0,.16);
+        opacity: 0; transition: opacity .25s ease;
+        z-index: 60;
+      `;
+      document.body.appendChild(tooltip);
+      requestAnimationFrame(() => {
+        tooltip.style.opacity = '1';
+        setTimeout(() => {
+          tooltip.style.opacity = '0';
+          setTimeout(() => tooltip.remove(), 250);
+        }, 1400);
+      });
+    }
+  </script>
 </body>
 </html>
